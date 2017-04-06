@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>USURP (Unwanted SoUnd RePlacement) &#8212; USURP (Unwanted SoUnd RePlacement) 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="USURP (Unwanted SoUnd RePlacement) 0.1 documentation" href="#" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="usurp-unwanted-sound-replacement">
+<span id="readme"></span><h1>USURP (Unwanted SoUnd RePlacement)<a class="headerlink" href="#usurp-unwanted-sound-replacement" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://childmind.org">Child Mind Institute</a> is developing <strong>USURP (Unwanted SoUnd RePlacement)</strong> as an open source software package to automate the replacement of unwanted sounds with sounds comparable to ambient noise in the rest of a given soundfile.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Release:</th><td class="field-body">0.1</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Apr 06, 2017</td>
+</tr>
+</tbody>
+</table>
+<p>Links:</p>
+<div class="toctree-wrapper compound">
+</div>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/ChildMindInstitute/USURP">GitHub</a></li>
+</ul>
+<ul class="simple">
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last"><a class="reference external" href="https://github.com/ChildMindInstitute/USURP/sound_resynthesis">sound resynthesis</a></p>
+</div>
+<div class="section" id="id1">
+<h2><span class="target" id="inputs">Inputs</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>audio file : <code class="docutils literal"><span class="pre">.wav</span></code> (16-bit)</li>
+<li>labels : <code class="docutils literal"><span class="pre">.aud</span></code> or <code class="docutils literal"><span class="pre">.xml</span></code></li>
+</ul>
+</div></blockquote>
+<p><strong>audio file</strong></p>
+<p>USURP takes 16-bit waveform soundfiles (<code class="docutils literal"><span class="pre">.wav</span></code>) as inputs. USURP is capable of converting the following filetypes to 16-bit waveforms:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Free Lossless Audio Codec (<code class="docutils literal"><span class="pre">.FLAC</span></code> or <code class="docutils literal"><span class="pre">.flac</span></code>)</li>
+<li>Material eXchange Format (<code class="docutils literal"><span class="pre">.MXF</span></code> or <code class="docutils literal"><span class="pre">.mxf</span></code>)</li>
+<li>MPEG Audio Layer III (<code class="docutils literal"><span class="pre">.mp3</span></code>)</li>
+<li>32-bit waveform (<code class="docutils literal"><span class="pre">.wav</span></code>)</li>
+</ul>
+</div></blockquote>
+<p><strong>labels</strong></p>
+<p>Currently, USURP also needs start times and stop times marked in a <a class="reference external" href="http://manual.audacityteam.org/man/label_tracks.html">labeled XML file</a>, which can be generated in <a class="reference external" href="http://www.audacityteam.org/">Audacity</a>. Unwanted sounds must be silenced and have their temporal boundaries marked for optimal performance.</p>
+</div>
+<div class="section" id="id2">
+<h2><span class="target" id="processing">Processing</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>If necessary, convert inputs to 16-bit waveforms.</li>
+<li>Clone<ul>
+<li>Find a likely ambient clip elsewhere in the file by choosing a segment with no peaks at or above a given threshold (default threshold: median of the amplitude envelope of the entire file). Copy that clip into each of the segments labeled for replacement.</li>
+</ul>
+</li>
+<li>Timeshift<ul>
+<li>Collapse the marked silences, shortening the file.</li>
+</ul>
+</li>
+<li>Output the new files.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2><span class="target" id="outputs">Outputs</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Clone replacement (<code class="docutils literal"><span class="pre">.wav</span></code>)</li>
+<li>Timeshifted replacement (<code class="docutils literal"><span class="pre">.wav</span></code>)</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">USURP (Unwanted SoUnd RePlacement)</a><ul>
+<li><a class="reference internal" href="#id1">Inputs</a></li>
+<li><a class="reference internal" href="#id2">Processing</a></li>
+<li><a class="reference internal" href="#id3">Outputs</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Jon Clucas, Child Mind Institute.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
